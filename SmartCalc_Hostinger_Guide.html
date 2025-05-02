@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCalc - Hostinger Deployment Guide</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--light);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin-top: 30px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        code {
+            background-color: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Menlo, Monaco, 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .tip, .warning, .note {
+            padding: 15px 15px 15px 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .tip {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+        }
+        
+        .warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+        }
+        
+        .note {
+            background-color: rgba(100, 116, 139, 0.1);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .option {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: white;
+        }
+        
+        .option h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        img {
+            max-width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SmartCalc Deployment Guide for Hostinger</h1>
+        <p>A complete guide to deploying your SmartCalc website on Hostinger web hosting</p>
+    </header>
+    
+    <div class="container">
+        <h2>Overview</h2>
+        <p>This guide will walk you through the process of deploying the SmartCalc calculator website on your Hostinger web hosting server. You have two main options for deployment, depending on your Hostinger plan and whether you need backend functionality.</p>
+        
+        <div class="note">
+            <strong>Note:</strong> Before starting the deployment process, make sure you have a Hostinger account and have set up your domain name.
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Step 1: Export SmartCalc Code</h2>
+        <ol class="steps">
+            <li>
+                <strong>Download Code:</strong> First, download the code from Replit by clicking on the three dots (...) in the file browser and selecting "Download as zip".
+            </li>
+            <li>
+                <strong>Save and Rename:</strong> Save the file to your computer and rename it to "SmartCalc.zip" if needed.
+            </li>
+            <li>
+                <strong>Extract Files:</strong> Extract the downloaded zip file to a folder on your computer.
+            </li>
+        </ol>
+    </div>
+    
+    <div class="container">
+        <h2>Step 2: Prepare the Project</h2>
+        <ol class="steps">
+            <li>
+                <strong>Install Node.js:</strong> Make sure you have Node.js installed on your computer. If not, download and install it from <a href="https://nodejs.org/" target="_blank">nodejs.org</a>.
+            </li>
+            <li>
+                <strong>Open Terminal:</strong> Open a terminal or command prompt and navigate to the extracted SmartCalc folder.
+            </li>
+            <li>
+                <strong>Install Dependencies:</strong> Run the following command to install all required dependencies:
+                <pre><code>npm install</code></pre>
+            </li>
+            <li>
+                <strong>Build the Project:</strong> Create a production build of the project:
+                <pre><code>npm run build</code></pre>
+                <p>This will create a <code>dist</code> directory with all the built files.</p>
+            </li>
+        </ol>
+        
+        <div class="warning">
+            <strong>Important:</strong> The build process may take a few minutes to complete. Make sure it finishes successfully before proceeding to the next step.
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Step 3: Deploy to Hostinger</h2>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="changeTab('static')">Static Deployment</div>
+            <div class="tab" onclick="changeTab('fullstack')">Full-Stack Deployment</div>
+        </div>
+        
+        <div id="static" class="tab-content active">
+            <h3>Option A: Static Deployment (Frontend Only)</h3>
+            <p>This option is best for basic Hostinger plans and doesn't require Node.js support.</p>
+            
+            <ol class="steps">
+                <li>
+                    <strong>Log in to Hostinger:</strong> Access your Hostinger control panel (hPanel).
+                </li>
+                <li>
+                    <strong>Navigate to File Manager:</strong> Go to "Website" → "File Manager" or use FTP software like FileZilla to connect to your server.
+                </li>
+                <li>
+                    <strong>Open public_html:</strong> Navigate to the <code>public_html</code> directory (or the directory configured for your domain).
+                </li>
+                <li>
+                    <strong>Upload Files:</strong> Upload the contents of the <code>dist/public</code> directory from your local build to this directory.
+                    <div class="tip">
+                        <strong>Tip:</strong> You can select all files in the <code>dist/public</code> directory and drag them to your File Manager window, or use the upload functionality.
+                    </div>
+                </li>
+                <li>
+                    <strong>Create .htaccess file:</strong> Create a new file named <code>.htaccess</code> in your <code>public_html</code> directory with the following content:
+                    <pre><code>&lt;IfModule mod_rewrite.c&gt;
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+&lt;/IfModule&gt;</code></pre>
+                </li>
+                <li>
+                    <strong>Verify Deployment:</strong> Visit your domain in a web browser to check if the website is working properly.
+                </li>
+            </ol>
+        </div>
+        
+        <div id="fullstack" class="tab-content">
+            <h3>Option B: Full-Stack Deployment (with Backend)</h3>
+            <p>Use this option if you need backend functionality and have a Hostinger plan with Node.js support.</p>
+            
+            <div class="warning">
+                <strong>Requirement:</strong> This option requires a Hostinger plan that supports Node.js applications, typically Premium or Business plans.
+            </div>
+            
+            <ol class="steps">
+                <li>
+                    <strong>Log in to Hostinger:</strong> Access your Hostinger control panel (hPanel).
+                </li>
+                <li>
+                    <strong>Create Application Directory:</strong> Use File Manager or FTP to create a directory for your application (e.g., <code>smartcalc</code>).
+                </li>
+                <li>
+                    <strong>Upload Files:</strong> Upload the following to your application directory:
+                    <ul>
+                        <li>The entire <code>dist</code> directory from your local build</li>
+                        <li><code>package.json</code> and <code>package-lock.json</code> files</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Create Environment File:</strong> Create a <code>.env</code> file in your application directory with any required environment variables:
+                    <pre><code>NODE_ENV=production
+PORT=3000
+# Add other environment variables if needed
+# DATABASE_URL=mysql://username:password@localhost:3306/database_name
+# ANTHROPIC_API_KEY=your_api_key_here</code></pre>
+                </li>
+                <li>
+                    <strong>Install Dependencies (if SSH is available):</strong>
+                    <ul>
+                        <li>Connect to your server via SSH from Hostinger's control panel</li>
+                        <li>Navigate to your application directory</li>
+                        <li>Run: <code>npm install --production</code></li>
+                    </ul>
+                    <div class="note">
+                        <strong>Note:</strong> If SSH is not available on your plan, you'll need to upload the <code>node_modules</code> directory from your local project.
+                    </div>
+                </li>
+                <li>
+                    <strong>Configure Node.js Application:</strong>
+                    <ul>
+                        <li>In Hostinger's hPanel, go to "Website" → "Node.js"</li>
+                        <li>Click "Create a Node.js app"</li>
+                        <li>Configure the settings:</li>
+                        <ul>
+                            <li>Entry Point: <code>dist/index.js</code></li>
+                            <li>Node.js Version: Select the latest available (16+)</li>
+                            <li>Application URL: Your domain or subdomain</li>
+                        </ul>
+                        <li>Save and start the application</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Configure Domain:</strong> Make sure your domain is pointing to your Node.js application in the Hostinger domain settings.
+                </li>
+                <li>
+                    <strong>Verify Deployment:</strong> Visit your domain to check if everything is working properly.
+                </li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Troubleshooting</h2>
+        
+        <div class="option">
+            <h3>Common Issue: 404 Page Not Found</h3>
+            <p><strong>Possible causes:</strong></p>
+            <ul>
+                <li>The <code>.htaccess</code> file is missing or incorrectly configured</li>
+                <li>Files were uploaded to the wrong directory</li>
+                <li>Your domain's DNS is not properly configured</li>
+            </ul>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Double-check the content of your <code>.htaccess</code> file</li>
+                <li>Verify that all files, especially <code>index.html</code>, are in the correct directory</li>
+                <li>Check your domain settings in Hostinger's control panel</li>
+            </ul>
+        </div>
+        
+        <div class="option">
+            <h3>Common Issue: Node.js Application Not Starting</h3>
+            <p><strong>Possible causes:</strong></p>
+            <ul>
+                <li>Entry point incorrectly specified</li>
+                <li>Missing dependencies</li>
+                <li>Environment variables not set properly</li>
+            </ul>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Check Hostinger's Node.js logs for specific error messages</li>
+                <li>Verify the entry point path is correct (should be <code>dist/index.js</code>)</li>
+                <li>Make sure all dependencies are installed</li>
+                <li>Check that your <code>.env</code> file has all required variables</li>
+            </ul>
+        </div>
+        
+        <div class="option">
+            <h3>Common Issue: White Screen or Blank Page</h3>
+            <p><strong>Possible causes:</strong></p>
+            <ul>
+                <li>JavaScript errors in the application</li>
+                <li>Missing CSS or JavaScript files</li>
+                <li>Incompatible browser or settings</li>
+            </ul>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Check your browser's developer console for error messages</li>
+                <li>Verify all required files are uploaded correctly</li>
+                <li>Clear your browser cache or try a different browser</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Maintaining Your Website</h2>
+        <p>After deploying your SmartCalc website, you might need to update it in the future:</p>
+        
+        <ol class="steps">
+            <li>
+                <strong>Make Changes Locally:</strong> Update your code on your local machine.
+            </li>
+            <li>
+                <strong>Rebuild:</strong> Run <code>npm run build</code> to create a new build.
+            </li>
+            <li>
+                <strong>Upload Updated Files:</strong>
+                <ul>
+                    <li>For static deployment, update the files in your <code>public_html</code> directory</li>
+                    <li>For full-stack deployment, update your entire application directory</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Restart Node.js App (if applicable):</strong> If you're using the full-stack option, restart your Node.js application in Hostinger's control panel.
+            </li>
+        </ol>
+    </div>
+    
+    <div class="container">
+        <h2>Getting Help</h2>
+        <p>If you encounter issues with your Hostinger deployment:</p>
+        <ul>
+            <li><strong>Check Hostinger's Knowledge Base:</strong> <a href="https://support.hostinger.com" target="_blank">https://support.hostinger.com</a></li>
+            <li><strong>Contact Hostinger Support:</strong> Access support through your hPanel account</li>
+            <li><strong>Check Server Logs:</strong> Review logs in your Hostinger control panel for specific error messages</li>
+        </ul>
+    </div>
+    
+    <script>
+        function changeTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to the clicked tab
+            document.querySelector(`.tab[onclick="changeTab('${tabId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
